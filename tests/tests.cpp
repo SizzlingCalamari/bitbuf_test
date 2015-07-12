@@ -17,6 +17,7 @@ void PrintBits(std::uint8_t value)
 
 int main()
 {
+    // write data with a bf_write
     std::uint8_t buffer[4] = {};
     bf_write bitwrite(buffer, sizeof(buffer));
 
@@ -52,6 +53,17 @@ int main()
     PrintBits(buffer[0]);
     PrintBits(buffer[1]);
     std::cout << std::endl;
-    // buffer:  20 06 00 00
+
+    // read the data back using a bf_read
+    bf_read bitread(buffer, sizeof(buffer));
+
+    std::cout << "readback:    ";
+    uint8_t read = 0;
+    bitread.ReadBits(&read, 8);
+    PrintBits(read);
+    bitread.ReadBits(&read, 8);
+    PrintBits(read);
+    std::cout << std::endl;
+
     return 0;
 }
